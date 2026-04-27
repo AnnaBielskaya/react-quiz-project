@@ -1,9 +1,8 @@
 import React, { useCallback } from "react";
-import QUESTIONS from "../questions.js";
-import quizCompletedImg from "../assets/quiz-complete.png";
-import Answer from "./Answer.jsx";
+import QUESTIONS from "../../questions.js";
 import QuestionTimer from "./QuestionTimer.jsx";
-
+import Answer from "./Answer.jsx";
+import QuizCompleted from "./QuizCompleted.jsx";
 const TIMEOUT = 60000;
 
 const Quiz = () => {
@@ -16,15 +15,8 @@ const Quiz = () => {
     });
   }, []);
 
-  const quizCompleted = userAnswers.length === QUESTIONS.length;
-
-  if (quizCompleted) {
-    return (
-      <div id="summary">
-        <img src={quizCompletedImg} alt="Quiz Completed" />
-        <h2>Quiz Summary</h2>
-      </div>
-    );
+  if (userAnswers.length === QUESTIONS.length) {
+    return <QuizCompleted />;
   }
 
   const shuffledAnswers = [...QUESTIONS[activeQuestion].answers];
