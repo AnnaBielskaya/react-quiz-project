@@ -6,15 +6,20 @@ const Quiz = () => {
   const activeQuestion = userAnswers.length;
 
   const handleSelectAnswer = (selectedAnswer) => {
-    setUserAnswers((prevState) => [...prevState, selectedAnswer]);
+    setUserAnswers((prevState) => {
+      return [...prevState, selectedAnswer];
+    });
   };
+
+  const shuffledAnswers = [...QUESTIONS[activeQuestion].answers];
+  shuffledAnswers.sort(() => Math.random() - 0.5);
 
   return (
     <div id="quiz">
       <div id="question">
         <p>Current question: {QUESTIONS[activeQuestion].text}</p>
         <ul id="answers">
-          {QUESTIONS[activeQuestion].answers.map((answer) => (
+          {shuffledAnswers.map((answer) => (
             <li key={answer} className="answer">
               <button onClick={() => handleSelectAnswer(answer)}>
                 {answer}
