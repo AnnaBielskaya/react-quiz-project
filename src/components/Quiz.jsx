@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useCallback } from "react";
 import QUESTIONS from "../questions.js";
 import quizCompletedImg from "../assets/quiz-complete.png";
 import Answer from "./Answer.jsx";
 import QuestionTimer from "./QuestionTimer.jsx";
 
-const MAX_TIMEOUT = 60000;
+const TIMEOUT = 60000;
 
 const Quiz = () => {
-  const [timeOut, setTimeOut] = React.useState(MAX_TIMEOUT);
   const [userAnswers, setUserAnswers] = React.useState([]);
   const activeQuestion = userAnswers.length;
 
-  const handleSelectAnswer = (selectedAnswer) => {
-    setTimeOut(3000);
+  const handleSelectAnswer = useCallback((selectedAnswer) => {
     setUserAnswers((prevState) => {
       return [...prevState, selectedAnswer];
     });
-  };
+  }, []);
 
   const quizCompleted = userAnswers.length === QUESTIONS.length;
 
@@ -37,7 +35,7 @@ const Quiz = () => {
       <div id="question">
         <QuestionTimer
           key={activeQuestion}
-          timeOut={timeOut}
+          timeOut={TIMEOUT}
           onTimeout={() => handleSelectAnswer(null)}
         />
         <p>Current question: {QUESTIONS[activeQuestion].text}</p>
