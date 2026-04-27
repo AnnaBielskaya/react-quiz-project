@@ -1,6 +1,7 @@
 import React from "react";
 import QUESTIONS from "../questions.js";
 import quizCompletedImg from "../assets/quiz-complete.png";
+import Answer from "./Answer.jsx";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = React.useState([]);
@@ -32,11 +33,11 @@ const Quiz = () => {
         <p>Current question: {QUESTIONS[activeQuestion].text}</p>
         <ul id="answers">
           {shuffledAnswers.map((answer) => (
-            <li key={answer} className="answer">
-              <button onClick={() => handleSelectAnswer(answer)}>
-                {answer}
-              </button>
-            </li>
+            <Answer
+              key={answer}
+              answer={answer}
+              handleSelectAnswer={handleSelectAnswer}
+            />
           ))}
         </ul>
       </div>
